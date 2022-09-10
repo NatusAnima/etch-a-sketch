@@ -21,7 +21,7 @@ function assignEventListeners(){
 
     griditems.forEach((div) => {
         div.addEventListener('mouseover', () => {
-            div.style.backgroundColor = "red";
+            div.style.backgroundColor = getRandomColor();
         });
     });
 }
@@ -44,3 +44,12 @@ function reset() {
 
     genDivs(size);
 }
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
