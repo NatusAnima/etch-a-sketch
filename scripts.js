@@ -1,27 +1,46 @@
 
-const size = 16;
+const size = 64;
 genDivs(size);
 
 function genDivs(v) {
-    var e = document.querySelector('#container');
+    var e = document.querySelector('.container');
     for (var i = 0; i < v; i++) {
-        var row = document.createElement("div");
-        row.className = "row";
-        for (var x = 1; x <= v; x++) {
+        for (var x = 0; x < v; x++) {
             var cell = document.createElement("div");
-            cell.className = "gridsquare";
+            cell.className = "grid-item";
             //cell.innerText = (i * v) + x;
-            row.appendChild(cell);
+            e.appendChild(cell);
         }
-        e.appendChild(row);
     }
+    assignEventListeners();
 }
 
-const gridsquares = document.querySelectorAll('.gridsquare');
 
-gridsquares.forEach((div) => {
-  div.addEventListener('mouseover', () => {
-    div.style.backgroundColor = "red";
-  });
-});
+function assignEventListeners(){
+    const griditems = document.querySelectorAll('.grid-item');
 
+    griditems.forEach((div) => {
+        div.addEventListener('mouseover', () => {
+            div.style.backgroundColor = "red";
+        });
+    });
+}
+
+
+function reset() {
+
+    const parent = document.querySelector('.container');
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+
+    let size = prompt("Please enter the desired size for the board. (Range 1-100)", "32");
+    while (size > 100 || size < 0) {
+        size = prompt("Please enter a number in range. (Range 1-100)", "32");
+    }
+
+    const container = document.querySelector('.container');
+    container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+
+    genDivs(size);
+}
